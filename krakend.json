@@ -46,7 +46,50 @@
                 "allow_credentials": false,
                 "debug": false
             },
-            
+          "qos/ratelimit/router": {
+            "max_rate": 15,
+            "client_max_rate": 5,
+            "strategy": "ip",
+            "capacity": 0,
+            "every": "0m",
+            "client_capacity": 0
+          }
+        }
+      },
+      {
+        "endpoint": "/api/krakend/albums",
+        "method": "GET",
+        "output_encoding": "no-op",
+        "backend": [
+          {
+            "url_pattern": "/albums",
+            "method": "GET",
+            "host": [
+              "https://jsonplaceholder.typicode.com"
+            ]
+          }
+        ],
+        "extra_config": {
+            "security/cors": {
+                "allow_origins": [
+                    "*"
+                ],
+                "allow_methods": [
+                    "GET",
+                    "HEAD",
+                    "POST"
+                ],
+                "expose_headers": [
+                    "Content-Length",
+                    "Content-Type"
+                ],
+                "allow_headers": [
+                    "Accept-Language"
+                ],
+                "max_age": "12h",
+                "allow_credentials": false,
+                "debug": false
+            },
           "qos/ratelimit/router": {
             "max_rate": 15,
             "client_max_rate": 5,

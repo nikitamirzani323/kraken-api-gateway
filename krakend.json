@@ -26,7 +26,7 @@
           }
         ],
         "extra_config": {
-            "security/cors": {
+          "security/cors": {
                 "allow_origins": [
                     "*"
                 ],
@@ -49,10 +49,7 @@
           "qos/ratelimit/router": {
             "max_rate": 15,
             "client_max_rate": 5,
-            "strategy": "ip",
-            "capacity": 0,
-            "every": "0m",
-            "client_capacity": 0
+            "strategy": "ip"
           }
         }
       },

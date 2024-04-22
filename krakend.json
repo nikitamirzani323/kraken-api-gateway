@@ -1,0 +1,61 @@
+{
+    "$schema": "https://www.krakend.io/schema/krakend.json",
+    "version": 3,
+    "name": "RestApiGateway",
+    "timeout": "30000ms",
+    "cache_ttl": "4000s",
+    "output_encoding": "no-op",
+    "port": 9001,
+    "extra_config": {
+        "router": {
+            "return_error_msg": true
+        }
+    },
+    "endpoints": [
+      {
+        "endpoint": "/api/krakend/posts",
+        "method": "GET",
+        "output_encoding": "no-op",
+        "backend": [
+          {
+            "url_pattern": "/posts",
+            "method": "GET",
+            "host": [
+              "https://jsonplaceholder.typicode.com"
+            ]
+          }
+        ],
+        "extra_config": {
+            "security/cors": {
+                "allow_origins": [
+                    "*"
+                ],
+                "allow_methods": [
+                    "GET",
+                    "HEAD",
+                    "POST"
+                ],
+                "expose_headers": [
+                    "Content-Length",
+                    "Content-Type"
+                ],
+                "allow_headers": [
+                    "Accept-Language"
+                ],
+                "max_age": "12h",
+                "allow_credentials": false,
+                "debug": false
+            },
+            
+          "qos/ratelimit/router": {
+            "max_rate": 15,
+            "client_max_rate": 5,
+            "strategy": "ip",
+            "capacity": 0,
+            "every": "0m",
+            "client_capacity": 0
+          }
+        }
+      }
+    ]
+  }

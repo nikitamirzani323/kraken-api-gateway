@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  krakend-api-gateway:
+    container_name: krakend-api-gateway
+    image: krakend-api-gateway:0.0.0.1
+    build: .
+    ports:
+      - 9001:9001
+    restart: always
